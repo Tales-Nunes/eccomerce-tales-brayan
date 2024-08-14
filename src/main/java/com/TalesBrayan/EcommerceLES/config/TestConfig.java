@@ -1,14 +1,8 @@
 package com.TalesBrayan.EcommerceLES.config;
 
-import com.TalesBrayan.EcommerceLES.entities.Category;
-import com.TalesBrayan.EcommerceLES.entities.Client;
-import com.TalesBrayan.EcommerceLES.entities.Order;
-import com.TalesBrayan.EcommerceLES.entities.Product;
+import com.TalesBrayan.EcommerceLES.entities.*;
 import com.TalesBrayan.EcommerceLES.entities.enums.OrderStatus;
-import com.TalesBrayan.EcommerceLES.repositories.CategoryRepository;
-import com.TalesBrayan.EcommerceLES.repositories.ClientRepository;
-import com.TalesBrayan.EcommerceLES.repositories.OrderRepository;
-import com.TalesBrayan.EcommerceLES.repositories.ProductRepository;
+import com.TalesBrayan.EcommerceLES.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -62,6 +59,10 @@ public class TestConfig implements CommandLineRunner {
         Order order1 = new Order(null, Instant.parse("2024-08-14T19:53:08Z"), OrderStatus.PAID, client1);
 
         orderRepository.saveAll(Arrays.asList(order1));
+
+        OrderItem oi1 = new OrderItem(order1, saxophone, 1, saxophone.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1));
 
 
 
