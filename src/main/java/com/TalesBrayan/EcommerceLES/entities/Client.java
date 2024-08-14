@@ -1,5 +1,6 @@
 package com.TalesBrayan.EcommerceLES.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -57,6 +58,7 @@ public class Client implements Serializable {
     @NotNull
     private String CEP;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<Order>();
 
