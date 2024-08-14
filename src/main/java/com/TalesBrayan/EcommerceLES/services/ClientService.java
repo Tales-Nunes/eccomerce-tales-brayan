@@ -4,6 +4,7 @@ import com.TalesBrayan.EcommerceLES.entities.Client;
 import com.TalesBrayan.EcommerceLES.repositories.ClientRepository;
 import com.TalesBrayan.EcommerceLES.services.exceptions.DatabaseException;
 import com.TalesBrayan.EcommerceLES.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -42,9 +43,12 @@ public class ClientService {
     }
 
     public Client update(Long id, Client obj) {
-        Client client = repository.getReferenceById(id);
-        updateData(client, obj);
-        return repository.save(client);
+        try{Client client = repository.getReferenceById(id);
+            updateData(client, obj);
+            return repository.save(client);
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     public void updateData(Client client, Client obj) {
