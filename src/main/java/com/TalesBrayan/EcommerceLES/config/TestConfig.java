@@ -3,10 +3,12 @@ package com.TalesBrayan.EcommerceLES.config;
 import com.TalesBrayan.EcommerceLES.entities.Category;
 import com.TalesBrayan.EcommerceLES.entities.Client;
 import com.TalesBrayan.EcommerceLES.entities.Order;
+import com.TalesBrayan.EcommerceLES.entities.Product;
 import com.TalesBrayan.EcommerceLES.entities.enums.OrderStatus;
 import com.TalesBrayan.EcommerceLES.repositories.CategoryRepository;
 import com.TalesBrayan.EcommerceLES.repositories.ClientRepository;
 import com.TalesBrayan.EcommerceLES.repositories.OrderRepository;
+import com.TalesBrayan.EcommerceLES.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -45,6 +50,9 @@ public class TestConfig implements CommandLineRunner {
 
         categoryRepository.saveAll(Arrays.asList(saxCategory,guitarCategory));
 
+        Product saxophone = new Product(null, "Saxophone", "Saxophone Tenor Henry Selmer Paris Super Series II", 30000.00, "img");
+
+        productRepository.saveAll(Arrays.asList(saxophone));
 
     }
 }
