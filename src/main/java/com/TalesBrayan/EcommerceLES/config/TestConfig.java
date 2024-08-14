@@ -36,6 +36,24 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Category instruments = new Category(null, "Instruments");
+        Category saxCategory = new Category(null, "Saxophone");
+        Category guitarCategory = new Category(null, "Guitar");
+
+        categoryRepository.saveAll(Arrays.asList(saxCategory,guitarCategory, instruments));
+
+        Product saxophone = new Product(null, "Saxophone Selmer", "Saxophone Tenor Henry Selmer Paris Super Series II", 30000.00, "img1");
+        Product guitar = new Product(null, "Guitar Fender", "Guitar Fender American Black edition", 22000.00, "img2");
+
+        productRepository.saveAll(Arrays.asList(saxophone, guitar));
+
+        saxophone.getCategories().add(saxCategory);
+        saxophone.getCategories().add(instruments);
+        guitar.getCategories().add(guitarCategory);
+        guitar.getCategories().add(instruments);
+
+        productRepository.saveAll(Arrays.asList(saxophone, guitar));
+
         Client client1 = new Client(null, "brayan", "328.607.060-20" , "brayan@gmail.com" , "123456", "11996222222", "Rua 2", "Mogi das Cruzes", "SP", "08743010");
         Client client2 = new Client(null, "Tales", "50487372883" , "tales@gmail.com" , "123456", "11996983359", "Rua 1", "Mogi das Cruzes", "SP", "08743010");
 
@@ -45,14 +63,7 @@ public class TestConfig implements CommandLineRunner {
 
         orderRepository.saveAll(Arrays.asList(order1));
 
-        Category saxCategory = new Category(null, "Saxophone");
-        Category guitarCategory = new Category(null, "Guitar");
 
-        categoryRepository.saveAll(Arrays.asList(saxCategory,guitarCategory));
-
-        Product saxophone = new Product(null, "Saxophone", "Saxophone Tenor Henry Selmer Paris Super Series II", 30000.00, "img");
-
-        productRepository.saveAll(Arrays.asList(saxophone));
 
     }
 }
