@@ -2,6 +2,7 @@ package com.TalesBrayan.EcommerceLES.config;
 
 import com.TalesBrayan.EcommerceLES.entities.Client;
 import com.TalesBrayan.EcommerceLES.entities.Order;
+import com.TalesBrayan.EcommerceLES.entities.enums.OrderStatus;
 import com.TalesBrayan.EcommerceLES.repositories.ClientRepository;
 import com.TalesBrayan.EcommerceLES.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class TestConfig implements CommandLineRunner {
 
         clientRepository.saveAll(Arrays.asList(client1, client2));
 
-        Order order1 = new Order(null, Instant.parse("2024-08-14T19:53:08Z"), client1);
+        Order order1 = new Order(null, Instant.parse("2024-08-14T19:53:08Z"), OrderStatus.PAID, client1);
 
         orderRepository.saveAll(Arrays.asList(order1));
 
