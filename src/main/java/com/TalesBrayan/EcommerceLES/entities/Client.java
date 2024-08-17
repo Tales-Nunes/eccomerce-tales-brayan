@@ -5,11 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,8 +29,8 @@ public class Client implements Serializable {
 
     @CPF(message = "Invalid CPF")
     @NotNull(message = "CPF is required")
-    @Column(name = "CPF", nullable = false, unique = true)
-    private String CPF;
+    @Column(name = "CPF", unique = true)
+    private String cpf;
 
     @NotNull
     @Email(message = "Email should be valid")
@@ -56,24 +54,24 @@ public class Client implements Serializable {
 
     @Size(min = 8, max = 8, message = "CEP code cannot exceed 10 characters")
     @NotNull
-    private String CEP;
+    private String cep;
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
-    private List<Order> orders = new ArrayList<Order>();
+    private List<Order> orders = new ArrayList<>();
 
     public Client(){}
     public Client(Long id, String name, String CPF, String email, String password, String phone, String address, String city, String state, String CEP) {
         this.id = id;
         this.name = name;
-        this.CPF = CPF;
         this.email = email;
+        this.cpf = CPF;
         this.password = password;
         this.phone = phone;
         this.address = address;
         this.city = city;
         this.state = state;
-        this.CEP = CEP;
+        this.cep = CEP;
     }
 
     public Long getId() {
@@ -93,11 +91,11 @@ public class Client implements Serializable {
     }
 
     public String getCPF() {
-        return CPF;
+        return cpf;
     }
 
     public void setCPF(String CPF) {
-        this.CPF = CPF;
+        this.cpf = CPF.replaceAll("\\D", "");
     }
 
     public String getEmail() {
@@ -149,11 +147,11 @@ public class Client implements Serializable {
     }
 
     public String getCEP() {
-        return CEP;
+        return cep;
     }
 
     public void setCEP(String CEP) {
-        this.CEP = CEP;
+        this.cep = CEP;
     }
 
     public List<Order> getOrders() {

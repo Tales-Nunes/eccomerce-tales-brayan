@@ -39,8 +39,8 @@ public class TestConfig implements CommandLineRunner {
 
         categoryRepository.saveAll(Arrays.asList(saxCategory,guitarCategory, instruments));
 
-        Product saxophone = new Product(null, "Saxophone Selmer", "Saxophone Tenor Henry Selmer Paris Super Series II", 30000.00, "img1");
-        Product guitar = new Product(null, "Guitar Fender", "Guitar Fender American Black edition", 22000.00, "img2");
+        Product saxophone = new Product(null, "Saxophone Selmer", "Saxophone Tenor Henry Selmer Paris Super Series II", 30000.00, 1);
+        Product guitar = new Product(null, "Guitar Fender", "Guitar Fender American Black edition", 22000.00, 1);
 
         productRepository.saveAll(Arrays.asList(saxophone, guitar));
 

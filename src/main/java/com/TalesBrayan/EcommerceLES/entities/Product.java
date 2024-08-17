@@ -2,6 +2,10 @@ package com.TalesBrayan.EcommerceLES.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.*;
@@ -13,10 +17,25 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(max = 100, message = "Name cannot exceed 100 characters")
     private String name;
+
+    @NotNull
+    @Size(max = 500, message = "Name cannot exceed 500 characters")
     private String description;
+
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
     private Double price;
-    private String imgUrl;
+
+    @NotNull(message = "Stock quantity is required")
+    @Min(value = 0, message = "Stock quantity cannot be negative")
+    private Integer stockQuantity;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ProductImage> images = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "tb_products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id") )
@@ -27,12 +46,12 @@ public class Product implements Serializable {
 
     public Product(){}
 
-    public Product(Long id, String name, String description, Double price, String imgUrl) {
+    public Product(Long id, String name, String description, Double price, Integer stockQuantity) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imgUrl = imgUrl;
+        this.stockQuantity = stockQuantity;
     }
 
     public Long getId() {
@@ -67,16 +86,21 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    public Integer getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
+    public Set<ProductImage> getImages() {
+        return images;
     }
 
     @JsonIgnore
