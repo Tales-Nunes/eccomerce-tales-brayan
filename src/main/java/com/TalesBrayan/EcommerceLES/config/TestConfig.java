@@ -51,8 +51,8 @@ public class TestConfig implements CommandLineRunner {
 
         productRepository.saveAll(Arrays.asList(saxophone, guitar));
 
-        Client client1 = new Client(null, "brayan", "328.607.060-20" , "brayan@gmail.com" , "123456", "11996222222", "Rua 2", "Mogi das Cruzes", "SP", "08743010");
-        Client client2 = new Client(null, "Tales", "50487372883" , "tales@gmail.com" , "123456", "11996983359", "Rua 1", "Mogi das Cruzes", "SP", "08743010");
+        Client client1 = new Client(null, "brayan", "328.607.060-20" , "brayan@gmail.com" , "123456", "11996222222", "08743010", "Rua 2", "1", "Casa",  "Mogi das Cruzes", "SP");
+        Client client2 = new Client(null, "Tales", "50487372883" , "tales@gmail.com" , "123456", "11996983359", "08743010", "Rua 1", "2", "Apartamento 3",  "Mogi das Cruzes", "SP" );
 
         clientRepository.saveAll(Arrays.asList(client1, client2));
 

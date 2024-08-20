@@ -53,13 +53,15 @@ public class ClientService {
 
     public void updateData(Client client, Client obj) {
         client.setName(obj.getName());
-        client.setCPF(obj.getCPF());
+        client.setCpf(obj.getCpf());
         client.setEmail(obj.getEmail());
         client.setPassword(obj.getPassword());
         client.setPhone(obj.getPhone());
         client.setAddress(obj.getAddress());
+        client.setNumber(obj.getNumber());
+        client.setComplement(obj.getComplement());
         client.setCity(obj.getCity());
         client.setState(obj.getState());
-        client.setCEP(obj.getCEP());
+        client.setCep(obj.getCep());
     }
 }

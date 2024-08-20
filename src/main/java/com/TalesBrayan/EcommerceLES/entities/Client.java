@@ -41,37 +41,51 @@ public class Client implements Serializable {
     private String password;
 
     @Size(max = 15, message = "Phone number cannot exceed 15 characters")
+    @NotNull
     private String phone;
-
-    @Size(max = 255, message = "Address cannot exceed 255 characters")
-    private String address;
-
-    @Size(max = 100, message = "City cannot exceed 100 characters")
-    private String city;
-
-    @Size(max = 2, message = "State should have 2 characters")
-    private String state;
 
     @Size(min = 8, max = 8, message = "CEP code cannot exceed 10 characters")
     @NotNull
     private String cep;
+
+    @Size(max = 255, message = "Address cannot exceed 255 characters")
+    @NotNull
+    private String address;
+
+    @NotNull
+    private String number;
+
+    @Size(max = 255, message = "Complement cannot exceed 255 characters")
+    @NotNull
+    private String complement;
+
+    @Size(max = 100, message = "City cannot exceed 100 characters")
+    @NotNull
+    private String city;
+
+    @Size(max = 2, message = "State should have 2 characters")
+    @NotNull
+    private String state;
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
     public Client(){}
-    public Client(Long id, String name, String CPF, String email, String password, String phone, String address, String city, String state, String CEP) {
+    public Client(Long id, String name, String CPF, String email, String password, String phone, String CEP, String address, String number, String complement, String city, String state ) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = CPF;
         this.password = password;
         this.phone = phone;
+        this.cep = CEP;
         this.address = address;
+        this.number = number;
+        this.complement = complement;
         this.city = city;
         this.state = state;
-        this.cep = CEP;
+
     }
 
     public Long getId() {
@@ -90,11 +104,11 @@ public class Client implements Serializable {
         this.name = name;
     }
 
-    public String getCPF() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCPF(String CPF) {
+    public void setCpf(String CPF) {
         this.cpf = CPF.replaceAll("\\D", "");
     }
 
@@ -122,12 +136,36 @@ public class Client implements Serializable {
         this.phone = phone;
     }
 
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String CEP) {
+        this.cep = CEP;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 
     public String getCity() {
@@ -146,13 +184,7 @@ public class Client implements Serializable {
         this.state = state;
     }
 
-    public String getCEP() {
-        return cep;
-    }
 
-    public void setCEP(String CEP) {
-        this.cep = CEP;
-    }
 
     public List<Order> getOrders() {
         return orders;
