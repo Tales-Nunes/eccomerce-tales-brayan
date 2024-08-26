@@ -1,10 +1,11 @@
 package com.TalesBrayan.EcommerceLES.services;
 
 import com.TalesBrayan.EcommerceLES.DTOs.ClientDTO;
+import com.TalesBrayan.EcommerceLES.DTOs.PhoneDTO;
 import com.TalesBrayan.EcommerceLES.entities.Address;
 import com.TalesBrayan.EcommerceLES.entities.Client;
 import com.TalesBrayan.EcommerceLES.entities.Phones;
-import com.TalesBrayan.EcommerceLES.repositories.ClientRepository;
+import com.TalesBrayan.EcommerceLES.repositories.PhonesRepository;
 import com.TalesBrayan.EcommerceLES.services.exceptions.DatabaseException;
 import com.TalesBrayan.EcommerceLES.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,28 +19,34 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ClientService {
+public class PhonesService {
 
     @Autowired
-    private ClientRepository repository;
+    private PhonesRepository repository;
 
-    public List<Client> findAll(){
+    public List<Phones> findAll(){
         return repository.findAll();
     }
 
-    public Client findById(Long id){
-        Optional<Client> obj = repository.findById(id);
+    public Phones findById(Long id){
+        Optional<Phones> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException((id)));
     }
 
-    public Client insert(ClientDTO clientDTO) {
-        Client client = new Client();
-        client.setName(clientDTO.getName());
-        client.setCpf(clientDTO.getCpf());
-        client.setEmail(clientDTO.getEmail());
-        client.setPassword(clientDTO.getPassword());
+    public Phones insert(Client client, ClientDTO clientDTO){
 
-        return repository.save(client);
+
+        List<Phones> phones = clientDTO.getPhone().stream().map(phoneDTO -> {
+            Phones phone = new Phones();
+            phone.setPhone(phoneDTO.getPhone());
+            phone.setClient(client);
+            return repository.save(phone);
+        }).collect(Collectors.toList());
+
+
+
+
+        return null;
     }
 
     public void delete(Long id) {
@@ -52,25 +59,16 @@ public class ClientService {
         }
     }
 
-    public Client update(Long id, Client obj) {
-        try{Client client = repository.getReferenceById(id);
-            updateData(client, obj);
-            return repository.save(client);
+    public Phones update(Long id, Phones obj) {
+        try{Phones phones = repository.getReferenceById(id);
+            updateData(phones, obj);
+            return repository.save(phones);
         }catch (EntityNotFoundException e){
             throw new ResourceNotFoundException(id);
         }
     }
 
-    public void updateData(Client client, Client obj) {
-        client.setName(obj.getName());
-        client.setCpf(obj.getCpf());
-        client.setEmail(obj.getEmail());
-        client.setPassword(obj.getPassword());
-
-        client.getPhone().clear();
-        client.getPhone().addAll(obj.getPhone());
-
-        client.getAddress().clear();
-        client.getAddress().addAll(obj.getAddress());
+    public void updateData(Phones phones, Phones obj) {
+        phones.setPhone(obj.getPhone());
     }
 }

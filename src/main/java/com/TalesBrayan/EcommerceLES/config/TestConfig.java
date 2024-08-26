@@ -33,7 +33,7 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Category instruments = new Category(null, "Instruments");
+      /*  Category instruments = new Category(null, "Instruments");
         Category saxCategory = new Category(null, "Saxophone");
         Category guitarCategory = new Category(null, "Guitar");
 
@@ -68,6 +68,6 @@ public class TestConfig implements CommandLineRunner {
         order1.setPayment(pay1);
 
         orderRepository.save(order1);
-
+*/
     }
 }
