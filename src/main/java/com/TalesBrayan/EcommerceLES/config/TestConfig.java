@@ -30,6 +30,12 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private StateRepository stateRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -69,5 +75,9 @@ public class TestConfig implements CommandLineRunner {
 
         orderRepository.save(order1);
 */
+        State state = new State(null, "Vinland");
+        City city = new City(null, "Terra do capeta", state);
+        stateRepository.save(state);
+        cityRepository.save(city);
     }
 }

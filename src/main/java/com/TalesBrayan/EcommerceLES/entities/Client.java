@@ -1,5 +1,6 @@
 package com.TalesBrayan.EcommerceLES.entities;
 
+import com.TalesBrayan.EcommerceLES.entities.enums.TipoClientStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -52,6 +53,8 @@ public class Client implements Serializable {
 
     private LocalDate dataCadastro;
 
+    private TipoClientStatus status;
+
     @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
@@ -65,7 +68,6 @@ public class Client implements Serializable {
         this.password = password;
         setPhone(phone);
         setAddress(address);
-
     }
 
     public Long getId() {
@@ -128,6 +130,14 @@ public class Client implements Serializable {
         return orders;
     }
 
+    public TipoClientStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TipoClientStatus status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -143,6 +153,7 @@ public class Client implements Serializable {
     @PrePersist
     protected void onCreate() {
         this.dataCadastro = LocalDate.now();
+        status = TipoClientStatus.ATIVO;
     }
 
     @Override

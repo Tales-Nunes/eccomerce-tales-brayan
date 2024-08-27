@@ -52,10 +52,21 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdClient);
     }
 
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         clientService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<Void> deactivateClient(@PathVariable Long id) {
+        clientService.deactivateClient(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/activate")
+    public ResponseEntity<Void> activateClient(@PathVariable Long id) {
+        clientService.activateClient(id);
         return ResponseEntity.noContent().build();
     }
 

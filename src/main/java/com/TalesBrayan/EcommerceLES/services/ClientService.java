@@ -4,6 +4,7 @@ import com.TalesBrayan.EcommerceLES.DTOs.ClientDTO;
 import com.TalesBrayan.EcommerceLES.entities.Address;
 import com.TalesBrayan.EcommerceLES.entities.Client;
 import com.TalesBrayan.EcommerceLES.entities.Phones;
+import com.TalesBrayan.EcommerceLES.entities.enums.TipoClientStatus;
 import com.TalesBrayan.EcommerceLES.repositories.ClientRepository;
 import com.TalesBrayan.EcommerceLES.services.exceptions.DatabaseException;
 import com.TalesBrayan.EcommerceLES.services.exceptions.ResourceNotFoundException;
@@ -50,6 +51,20 @@ public class ClientService {
         } catch (DataIntegrityViolationException e){
             throw new DatabaseException(e.getMessage());
         }
+    }
+
+    public void deactivateClient(Long id) {
+        Client client = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        client.setStatus(TipoClientStatus.INATIVO);
+        repository.save(client);
+    }
+
+    public void activateClient(Long id) {
+        Client client = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        client.setStatus(TipoClientStatus.ATIVO);
+        repository.save(client);
     }
 
     public Client update(Long id, Client obj) {
