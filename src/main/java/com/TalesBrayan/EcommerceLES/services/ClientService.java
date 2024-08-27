@@ -56,14 +56,14 @@ public class ClientService {
     public void deactivateClient(Long id) {
         Client client = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
-        client.setStatus(TipoClientStatus.INATIVO);
+        client.setClientStatus(TipoClientStatus.INATIVO);
         repository.save(client);
     }
 
     public void activateClient(Long id) {
         Client client = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
-        client.setStatus(TipoClientStatus.ATIVO);
+        client.setClientStatus(TipoClientStatus.ATIVO);
         repository.save(client);
     }
 

@@ -48,6 +48,8 @@ public class AddressService {
             address.setAddress(addressDTO.getAddress());
             address.setNumber(addressDTO.getNumber());
             address.setComplement(addressDTO.getComplement());
+            address.setTipoAddress(addressDTO.getTipoAddress());
+            address.setAddressNickname(addressDTO.getAddressNickname());
             City city = cityRepository.findById(addressDTO.getCityId())
                     .orElseThrow(() -> new ResourceNotFoundException("City not found in the specified state"));
             address.setCity(city);

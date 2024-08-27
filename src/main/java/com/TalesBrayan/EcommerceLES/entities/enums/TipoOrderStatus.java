@@ -1,6 +1,6 @@
 package com.TalesBrayan.EcommerceLES.entities.enums;
 
-public enum OrderStatus {
+public enum TipoOrderStatus {
 
     WAITING_PAYMENT(1),
     PAID(2),
@@ -10,7 +10,7 @@ public enum OrderStatus {
 
     private int code;
 
-    private OrderStatus(int code) {
+    TipoOrderStatus(int code) {
         this.code = code;
     }
 
@@ -18,8 +18,8 @@ public enum OrderStatus {
         return code;
     }
 
-    public static OrderStatus valueOf(int code) {
-        for(OrderStatus value : OrderStatus.values()) {
+    public static TipoOrderStatus valueOf(int code) {
+        for(TipoOrderStatus value : TipoOrderStatus.values()) {
             if(value.getCode() == code){
                 return value;
             }

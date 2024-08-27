@@ -1,6 +1,6 @@
 package com.TalesBrayan.EcommerceLES.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.TalesBrayan.EcommerceLES.entities.enums.TipoAddress;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -42,9 +42,16 @@ public class Address implements Serializable {
     @JsonIgnore
     private Client client;
 
+    @NotNull
+    private Integer tipoAddress;
+
+
+    @Size(max = 255, message = "Address Nickname cannot exceed 255 characters")
+    private String addressNickname;
+
     public Address() {}
 
-    public Address(Long id, String cep, String address, String number, String complement, City city, Client client) {
+    public Address(Long id, String cep, String address, String number, String complement, City city, Client client, TipoAddress tipoAddress, String addressNickname) {
         this.id = id;
         this.cep = cep;
         this.address = address;
@@ -52,6 +59,9 @@ public class Address implements Serializable {
         this.complement = complement;
         this.city = city;
         this.client = client;
+        this.addressNickname = addressNickname;
+        setTipoAddress(tipoAddress);
+
     }
 
     public Long getId() {
@@ -110,6 +120,23 @@ public class Address implements Serializable {
         this.client = client;
     }
 
+    public TipoAddress getTipoAddress() {
+        return TipoAddress.valueOf(tipoAddress);
+    }
+
+    public void setTipoAddress(TipoAddress tipoAddress) {
+        if(tipoAddress != null)
+            this.tipoAddress = tipoAddress.getCode();
+    }
+
+    public String getAddressNickname(String addressNickname) {
+        return this.addressNickname;
+    }
+
+    public void setAddressNickname(String addressNickname) {
+        this.addressNickname = addressNickname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,6 +159,7 @@ public class Address implements Serializable {
                 ", complement='" + complement + '\'' +
                 ", city='" + city + '\'' +
                 ", clientId=" + (client != null ? client.getId() : null) +
+                ", addressNickname=" + addressNickname + '\'' +
                 '}';
     }
 }

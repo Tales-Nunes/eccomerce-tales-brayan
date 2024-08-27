@@ -1,20 +1,16 @@
 package com.TalesBrayan.EcommerceLES.DTOs;
 
+import com.TalesBrayan.EcommerceLES.entities.enums.TipoAddress;
+
 public class AddressDTO {
     private String cep;
     private String address;
     private String number;
     private String complement;
     private Long cityId;
+    private TipoAddress tipoAddress;
+    private String addressNickname;
 
-    public AddressDTO(){}
-    public AddressDTO(String cep, String address, String number, String complement, Long cityId) {
-        this.cep = cep;
-        this.address = address;
-        this.number = number;
-        this.complement = complement;
-        this.cityId = cityId;
-    }
 
     public String getCep() {
         return cep;
@@ -54,5 +50,21 @@ public class AddressDTO {
 
     public void setCityId(Long cityId) {
         this.cityId = cityId;
+    }
+
+    public TipoAddress getTipoAddress() {
+        return tipoAddress;
+    }
+
+    public void setTipoAddress(TipoAddress tipoAddress) {
+        this.tipoAddress = tipoAddress;
+    }
+
+    public String getAddressNickname() {
+        return addressNickname;
+    }
+
+    public void setAddressNickname(String addressNickname) {
+        this.addressNickname = addressNickname;
     }
 }

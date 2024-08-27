@@ -1,6 +1,6 @@
 package com.TalesBrayan.EcommerceLES.entities;
 
-import com.TalesBrayan.EcommerceLES.entities.enums.OrderStatus;
+import com.TalesBrayan.EcommerceLES.entities.enums.TipoOrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -35,7 +35,7 @@ public class Order implements Serializable {
 
     public Order(){}
 
-    public Order(Long id, Instant moment, OrderStatus orderStatus, Client client) {
+    public Order(Long id, Instant moment, TipoOrderStatus orderStatus, Client client) {
         this.id = id;
         this.moment = moment;
         setOrderStatus(orderStatus);
@@ -67,11 +67,11 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-    public OrderStatus getOrderStatus() {
-        return OrderStatus.valueOf(orderStatus);
+    public TipoOrderStatus getOrderStatus() {
+        return TipoOrderStatus.valueOf(orderStatus);
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(TipoOrderStatus orderStatus) {
         if(orderStatus != null)
         this.orderStatus = orderStatus.getCode();
     }

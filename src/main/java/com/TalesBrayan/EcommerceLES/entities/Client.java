@@ -1,6 +1,7 @@
 package com.TalesBrayan.EcommerceLES.entities;
 
 import com.TalesBrayan.EcommerceLES.entities.enums.TipoClientStatus;
+import com.TalesBrayan.EcommerceLES.entities.enums.TipoOrderStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -51,16 +52,20 @@ public class Client implements Serializable {
     //@NotNull
     private List<Address> address = new ArrayList<>();
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@NotNull
+    private List<Card> cards = new ArrayList<>();
+
     private LocalDate dataCadastro;
 
-    private TipoClientStatus status;
+    private Integer clientStatus;
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
     public Client(){}
-    public Client(Long id, String name, String CPF, String email, String password, List<Phones> phone, List<Address> address ) {
+    public Client(Long id, String name, String CPF, String email, String password, List<Phones> phone, List<Address> address, List<Card> cards) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -68,6 +73,7 @@ public class Client implements Serializable {
         this.password = password;
         setPhone(phone);
         setAddress(address);
+        setCards(cards);
     }
 
     public Long getId() {
@@ -126,16 +132,25 @@ public class Client implements Serializable {
         this.address = address;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
     public List<Order> getOrders() {
         return orders;
     }
 
-    public TipoClientStatus getStatus() {
-        return status;
+    public TipoClientStatus getClientStatus() {
+        return TipoClientStatus.valueOf(clientStatus);
     }
 
-    public void setStatus(TipoClientStatus status) {
-        this.status = status;
+    public void setClientStatus(TipoClientStatus clientStatus) {
+        if(clientStatus != null)
+            this.clientStatus = clientStatus.getCode();
     }
 
     @Override
@@ -153,7 +168,7 @@ public class Client implements Serializable {
     @PrePersist
     protected void onCreate() {
         this.dataCadastro = LocalDate.now();
-        status = TipoClientStatus.ATIVO;
+        clientStatus = 1;
     }
 
     @Override

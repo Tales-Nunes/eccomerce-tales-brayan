@@ -1,7 +1,7 @@
 package com.TalesBrayan.EcommerceLES.config;
 
 import com.TalesBrayan.EcommerceLES.entities.*;
-import com.TalesBrayan.EcommerceLES.entities.enums.OrderStatus;
+import com.TalesBrayan.EcommerceLES.entities.enums.TipoOrderStatus;
 import com.TalesBrayan.EcommerceLES.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -35,6 +35,7 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private StateRepository stateRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
